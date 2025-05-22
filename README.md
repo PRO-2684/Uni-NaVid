@@ -17,7 +17,7 @@ https://github.com/user-attachments/assets/304a512f-bfac-46e2-b293-f2e1e8b04f63
 
 
 
-## Code and wieghts releass
+## Code and weights release
 
 The code has been cleaned and is nearly finished. We are ready to release the code and weights, along with a small subset of training data (as a reference for researchers to build their custom datasets). I'm currently discussing with the supporting companies to obtain final approval for the official release. This will likely occur in late May or June.
 
