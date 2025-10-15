@@ -125,8 +125,6 @@ https://github.com/user-attachments/assets/5ae851e0-d7fd-4b29-8501-05715febfc47
 
 
 ### Benchmark Evaluation 
-(TBD within few days)
-
 We provide the evaluation code of Uni-NaVid on VLN-CE R2R/RxR and EVT Bench. 
 
 Find the **VLN-CE benchmark** evaluation code [here](https://github.com/jzhzhang/NaVid-VLN-CE).
@@ -136,7 +134,7 @@ Find the **VLN-CE benchmark** evaluation code [here](https://github.com/jzhzhang
 | Uni-NaVid VLN-CE R2R Val.      | 9.22 | 4.96 | 57.4 | 51.8 | 47.7 |
 | Uni-NaVid VLN-CE RxR Val.      | 18.4 | 5.67 | 66.4 | 56.1 | 44.5 |
 
-Find the **EVT-bench** evaluation code [here](https://github.com/wsakobe/TrackVLA).
+(TBD) Find the **EVT-bench** evaluation code [here](https://github.com/wsakobe/TrackVLA).
 
 | Evaliation Benchmark |  SR  |  TR  |  CR  | 
 |----------------------|:----:|:----:|:----:|
