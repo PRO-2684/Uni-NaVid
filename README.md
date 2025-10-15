@@ -88,6 +88,7 @@ Uni-NaVid
     ├── <uninavid_weights> 
 ├── scripts
 ├── uninavid
+├── test_cases # optinoal, if you want to offline evaluate uni-navid
 ```
 
 ## Train
@@ -110,8 +111,18 @@ During evaluation, the model leverages online token merging (`run_type=eval`), a
 
 
 ### Offline Evaluation
+We provide the offline evaluation code of Uni-NaVid on real-world videos, including a VLN sample `vln_1` and a tracking sample `tracking_1`. You can download the sample videos from [here](https://huggingface.co/datasets/Jzzhang/Uni-NaVid-data).
 
-(TBD within few days)
+```
+python offline_eval_uninavid.py test_cases/vln_1 Ourpur_dir # or test_cases/tracking_1
+```
+https://github.com/user-attachments/assets/31592c56-8369-4389-994f-f64b151ebb59
+(move to the chair, then turn left and move forward to the humanoid robot and stop.)
+
+https://github.com/user-attachments/assets/5ae851e0-d7fd-4b29-8501-05715febfc47
+(follow the man with black top and brown pants.)
+
+
 
 ### Benchmark Evaluation 
 (TBD within few days)
