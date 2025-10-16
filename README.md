@@ -15,7 +15,7 @@ Contributors: [Jiazhao Zhang](https://jzhzhang.github.io/), Kunyu Wang, [Shaoan 
 
 https://github.com/user-attachments/assets/304a512f-bfac-46e2-b293-f2e1e8b04f63 -->
 
-
+![pipeline](./assets/uninavid.png)
 
 ## Release
 - [x] Training Code
