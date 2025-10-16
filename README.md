@@ -111,7 +111,7 @@ During evaluation, the model leverages online token merging (`run_type=eval`), a
 
 
 ### Offline Evaluation
-We provide the offline evaluation code of Uni-NaVid on real-world videos, including a VLN sample `vln_1` and a tracking sample `tracking_1`. You can download the sample videos from [here](https://huggingface.co/datasets/Jzzhang/Uni-NaVid-data).
+We provide the offline evaluation code of Uni-NaVid on real-world videos, including a VLN sample `vln_1` and a tracking sample `tracking_1`. You can download the sample videos from [here](https://huggingface.co/Jzzhang/Uni-NaVid/tree/main/test_cases).
 
 ```
 python offline_eval_uninavid.py test_cases/vln_1 Ourpur_dir # or test_cases/tracking_1
