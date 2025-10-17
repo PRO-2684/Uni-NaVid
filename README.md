@@ -73,7 +73,7 @@ To train our model, you need to download the vision encoder and the language mod
 
 ### Data
 
-We provide a small subset of the data used in our paper to facilitate quick reproduction and customization with your own data. The data can be downloaded from [here](https://huggingface.co/datasets/Jzzhang/Uni-NaVid-data). The data is collcted from navigation tasks including the training splits of [VLN-CE](https://github.com/jacobkrantz/VLN-CE) R2R and RxR, [EVT-Bench](https://github.com/wsakobe/TrackVLA), [ObjectNav](https://arxiv.org/abs/2006.13171), [EQA](https://embodiedqa.org/). **Note that due to licensing restrictions, we did not use the [L3MVN](https://arxiv.org/pdf/2304.05501) method for ObjectNav limiation learning, which may result in a slight performance drop in ObjectNav evaluation.**
+We provide a small subset of the data used in our paper to facilitate quick reproduction and customization with your own data. The data can be downloaded from [here](https://huggingface.co/Jzzhang/Uni-NaVid/tree/main/Nav-Finetune). The data is collcted from navigation tasks including the training splits of [VLN-CE](https://github.com/jacobkrantz/VLN-CE) R2R and RxR, [EVT-Bench](https://github.com/wsakobe/TrackVLA), [ObjectNav](https://arxiv.org/abs/2006.13171), [EQA](https://embodiedqa.org/). **Note that due to licensing restrictions, we did not use the [L3MVN](https://arxiv.org/pdf/2304.05501) method for ObjectNav limiation learning, which may result in a slight performance drop in ObjectNav evaluation.**
 
 We recommend organizing your project directory as follows
 ```
