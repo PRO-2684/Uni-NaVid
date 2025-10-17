@@ -22,7 +22,7 @@ https://github.com/user-attachments/assets/304a512f-bfac-46e2-b293-f2e1e8b04f63 
 - [x] Offline Evaluation Code
 - [x] Benchmark Evalation Code
     - [x] VLN-CE
-    - [ ] EVT-Bench
+    - [x] EVT-Bench
 - [x] A small split of VLN-CE RxR data
 
 
@@ -136,7 +136,7 @@ Find the **VLN-CE benchmark** evaluation code [here](https://github.com/jzhzhang
 | Uni-NaVid VLN-CE R2R Val.      | 9.22 | 4.96 | 57.4 | 51.8 | 47.7 |
 | Uni-NaVid VLN-CE RxR Val.      | 18.4 | 5.67 | 66.4 | 56.1 | 44.5 |
 
-(TBD) Find the **EVT-bench** evaluation code [here](https://github.com/wsakobe/TrackVLA).
+Find the **EVT-bench** evaluation code [here](https://github.com/wsakobe/TrackVLA).
 
 | Evaliation Benchmark |  SR  |  TR  |  CR  | 
 |----------------------|:----:|:----:|:----:|
