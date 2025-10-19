@@ -35,7 +35,10 @@ ENV PATH=/opt/conda/bin:$PATH
 #     && rm -rf /var/lib/apt/lists/*
 
 # Switch to non-root user
-USER $USERNAME
+RUN groupadd --gid 1000 vscode \
+    && useradd --uid 1000 --gid 1000 -m vscode
+USER vscode
+WORKDIR /home/vscode
 
 # Accept ToS
 RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
@@ -43,7 +46,18 @@ RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkg
 
 # Create conda environment
 RUN conda create -n uninavid python=3.10 -y
+COPY pyproject.toml /home/vscode/pyproject.toml
+RUN conda init && \
+    . /opt/conda/etc/profile.d/conda.sh && \
+    conda activate uninavid && \
+    pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple && \
+    pip install --upgrade pip && \
+    cd /home/vscode && \
+    pip install .
+RUN . /opt/conda/etc/profile.d/conda.sh && \
+    conda activate uninavid && \
+    pip install flash-attn==2.5.9.post1 --no-build-isolation
 
 # Initialize conda for the user
 RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate uninavid" >> ~/.bashrc
+echo "conda activate uninavid" >> ~/.bashrc
