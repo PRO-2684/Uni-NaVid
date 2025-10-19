@@ -1,5 +1,3 @@
-
-
 CONTROLLER_HEART_BEAT_EXPIRATION = 30
 WORKER_HEART_BEAT_INTERVAL = 15
 
@@ -20,4 +18,3 @@ IMAGE_END_TOKEN = "</image_special>"
 NAVIGATION_SPECIAL_TOKEN = "[Navigation]"
 NAVIGATION_IDENTIFIER = 'a video of historical observations and an image of the current observation'
 IAMGE_SEPARATOR = "<image_sep>"
-

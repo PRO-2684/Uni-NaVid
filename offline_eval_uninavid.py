@@ -16,40 +16,28 @@ from uninavid.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_I
 from uninavid.conversation import conv_templates, SeparatorStyle
 from uninavid.mm_utils import tokenizer_image_token, KeywordsStoppingCriteria
 
-
-
-
 seed = 30
 torch.manual_seed(seed)
 np.random.seed(seed)
 
-
-
-
-
-
 class UniNaVid_Agent():
     def __init__(self, model_path):
-        
         print("Initialize UniNaVid")
-        
-        self.conv_mode = "vicuna_v1"
 
+        self.conv_mode = "vicuna_v1"
         self.model_name = get_model_name_from_path(model_path)
         self.tokenizer, self.model, self.image_processor, self.context_len = load_pretrained_model(model_path, None, get_model_name_from_path(model_path))
 
         assert self.image_processor is not None
 
         print("Initialization Complete")
-        
+
         self.promt_template = "Imagine you are a robot programmed for navigation tasks. You have been given a video of historical observations and an image of the current observation <image>. Your assigned task is: '{}'. Analyze this series of images to determine your next four actions. The predicted action should be one of the following: forward, left, right, or stop."
         self.rgb_list = []
         self.count_id = 0
         self.reset()
 
     def process_images(self, rgb_list):
-
-        
         batch_image = np.asarray(rgb_list)
         self.model.get_model().new_frames = len(rgb_list)
         video = self.image_processor.preprocess(batch_image, return_tensors='pt')['pixel_values'].half().cuda()
@@ -58,7 +46,6 @@ class UniNaVid_Agent():
 
 
     def predict_inference(self, prompt):
-        
         question = prompt.replace(DEFAULT_IMAGE_TOKEN, '').replace('\n', '')
         qs = prompt
 
@@ -135,11 +122,7 @@ class UniNaVid_Agent():
 
         return outputs
 
-
-
-
     def reset(self, task_type='vln'):
-
         self.transformation_list = []
         self.rgb_list = []
         self.last_action = None
@@ -156,19 +139,15 @@ class UniNaVid_Agent():
 
 
     def act(self, data):
-    
         rgb = data["observations"]
         self.rgb_list.append(rgb)
 
-
         navigation_qs = self.promt_template.format(data["instruction"])
-        
         navigation = self.predict_inference(navigation_qs)
-                
         action_list = navigation.split(" ")
-
         traj = [[0.0, 0.0, 0.0]]
-        for action in action_list: 
+
+        for action in action_list:
             if action == "stop":
                 waypoint = [x + y for x, y in zip(traj[-1], [0.0, 0.0, 0.0])]
                 traj = [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
@@ -183,29 +162,24 @@ class UniNaVid_Agent():
                 waypoint = [x + y for x, y in zip(traj[-1], [0.0, 0.0, np.deg2rad(30)])]
                 traj.append(waypoint)
 
-                                    
         if len(action_list)==0:
             raise ValueError("No action found in the output")
-            
+
         self.executed_steps += 1
-            
         self.latest_action = {"step": self.executed_steps, "path":[traj], "actions":action_list}
-            
         return self.latest_action.copy()
 
 def get_sorted_images(recording_dir):
     image_dir = os.path.join(recording_dir, 'images')
-    
     image_files = [f for f in os.listdir(image_dir) if f.endswith('.jpg')]
-    
     image_files.sort(key=lambda x: int(os.path.splitext(x)[0]))
-    
     images = []
+
     for step, image_file in enumerate(image_files):
         image_path = os.path.join(image_dir, image_file)
         np_image = cv2.imread(image_path)
         images.append(np_image)
-    
+
     return images
 
 def get_traj_data(recording_dir):
@@ -219,15 +193,14 @@ def get_traj_data(recording_dir):
 def draw_traj_arrows_fpv(
     img,
     actions,
-    arrow_len=10,                
-    arrow_gap=2,                 
-    arrow_color=(0, 255, 0),    
+    arrow_len=10,
+    arrow_gap=2,
+    arrow_color=(0, 255, 0),
     arrow_thickness=2,
     tipLength=0.35,
-    stop_color=(0, 0, 255),      
+    stop_color=(0, 0, 255),
     stop_radius=5
 ):
- 
     out = img.copy()
     h, w = out.shape[:2]
 
@@ -243,7 +216,7 @@ def draw_traj_arrows_fpv(
         elif action == "right":
             waypoint = [0.0, 0.0, np.deg2rad(30)]
         else:
-            continue  
+            continue
 
         x, y, yaw = waypoint
 
@@ -260,36 +233,24 @@ def draw_traj_arrows_fpv(
                 int(start[1] - arrow_len * np.cos(yaw))
             )
             cv2.arrowedLine(out, start, end, arrow_color, arrow_thickness, tipLength=tipLength)
-    
+
     out = cv2.cvtColor(out, cv2.COLOR_BGR2RGB)
     return out
 
-
-
-
-
 if __name__ == '__main__':
-    
-    
     parser = argparse.ArgumentParser()
     parser.add_argument('test_case', help='test case path (images dir)')
     parser.add_argument('output_dir', help='output dir to save results')
-    
-
-    
     args = parser.parse_args()
-    
-    
-    
-    
+
     agent = UniNaVid_Agent("model_zoo/uninavid-7b-full-224-video-fps-1-grid-2")
     agent.reset()
-     
+
     images = get_sorted_images(args.test_case)
     instruction = get_traj_data(args.test_case)
     print(f"Total {len(images)} images")
     h,w,n = images[0].shape
-        
+
     result_vis_list = []
     step_count = 0
     for i, img in enumerate(images):
@@ -299,14 +260,13 @@ if __name__ == '__main__':
         t_s = time.time()
         result = agent.act({'instruction': instruction, 'observations': image})
         step_count += 1
-        
+
         print("step", step_count, "inference time", time.time()-t_s)
-        
+
         traj = result['path'][0]
         actions = result['actions']
 
         vis = draw_traj_arrows_fpv(img, actions, arrow_len=20)
         result_vis_list.append(vis)
 
-    
     imageio.mimsave(os.path.join(args.output_dir,"result.gif"), result_vis_list)
