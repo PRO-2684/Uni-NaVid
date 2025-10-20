@@ -25,14 +25,14 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 # Add conda to path
 ENV PATH=/opt/conda/bin:$PATH
 
-# Install additional dependencies for video processing
-# RUN apt-get update && apt-get install -y \
-#     ffmpeg \
-#     libsm6 \
-#     libxext6 \
+# Install additional dependencies for video processing (cv2)
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    libsm6 \
+    libxext6 \
 #     libxrender-dev \
 #     libgomp1 \
-#     && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 # Switch to non-root user
 RUN groupadd --gid 1000 vscode \
