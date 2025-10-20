@@ -47,7 +47,7 @@ RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkg
 # Create conda environment
 RUN conda create -n uninavid python=3.10 -y
 COPY pyproject.toml /home/vscode/pyproject.toml
-RUN conda init && \
+RUN conda init bash zsh && \
     . /opt/conda/etc/profile.d/conda.sh && \
     conda activate uninavid && \
     pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple && \
