@@ -80,11 +80,11 @@ Uni-NaVid
         ├── open_uninavid_sampled_500.json
 ├── model_zoo
     ├── eva_vit_g.pth
-    ├── <vicuna_weights> # optinoal, if you want to finetune from vicuna
-    ├── <uninavid_weights>
+    ├── <vicuna_weights> # Optinoal, if you want to finetune from vicuna
+    ├── uninavid-7b-full-224-video-fps-1-grid-2 # Finetuned Uni-NaVid model
 ├── scripts
 ├── uninavid
-├── test_cases # optinoal, if you want to offline evaluate uni-navid
+├── test_cases # Optinoal, if you want to offline evaluate uni-navid
 ```
 
 ## Train
