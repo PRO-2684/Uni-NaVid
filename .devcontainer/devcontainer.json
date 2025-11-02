@@ -9,9 +9,9 @@
         "dockerfile": "Dockerfile"
     },
     "runArgs": [
-        // Enable GPU support & limit to 2 GPUs
+        // Enable GPU support
         "--gpus",
-        "2", // Adjust to fit your needs
+        "all",
         // Increase shared memory size for PyTorch DataLoader
         "--shm-size=16gb",
         // Set IPC mode for better multi-process communication
