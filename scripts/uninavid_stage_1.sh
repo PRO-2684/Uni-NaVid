@@ -1,3 +1,4 @@
+export PYTORCH_CUDA_ALLOC_CONF="max_split_size_mb:64"
 PREV_MODEL="./model_zoo/vicuna-7b-v1.5"
 DATA_PATH="./data/Nav-Finetune/open_uninavid_sampled_500.json"
 MODEL_PATH="./model_zoo/univid-7b-full-224-video-fps-1-grid-2-from-vicuna"
@@ -6,7 +7,7 @@ MODEL_PATH="./model_zoo/univid-7b-full-224-video-fps-1-grid-2-from-vicuna"
 
 deepspeed --no_local_rank --hostfile /etc/mpi/hostfile \
     uninavid/train/train_mem.py \
-    --deepspeed ./scripts/zero2.json \
+    --deepspeed ./scripts/zero2_offload.json \
     --model_name_or_path $PREV_MODEL \
     --version imgsp_v1 \
     --data_path $DATA_PATH \
@@ -26,9 +27,9 @@ deepspeed --no_local_rank --hostfile /etc/mpi/hostfile \
     --bf16 True \
     --output_dir $MODEL_PATH \
     --num_train_epochs 1 \
-    --per_device_train_batch_size 8 \
+    --per_device_train_batch_size 4 \
     --per_device_eval_batch_size 1 \
-    --gradient_accumulation_steps 2 \
+    --gradient_accumulation_steps 4 \
     --evaluation_strategy "no" \
     --save_strategy "steps" \
     --save_steps 8000 \
