@@ -15,7 +15,9 @@
         // Increase shared memory size for PyTorch DataLoader
         "--shm-size=16gb",
         // Set IPC mode for better multi-process communication
-        "--ipc=host"
+        "--ipc=host",
+        // Set network to host
+        "--network=host"
     ],
     "features": {
         "ghcr.io/devcontainers/features/common-utils:2": {
